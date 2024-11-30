@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import Signup from './components/signup';
+import Login from './components/login';
+import HomePage from './components/HomePage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/auth.css';
 
-function App() {
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TransitionGroup>
+      <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+        <Routes location={location}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
   );
-}
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AnimatedRoutes />
+    </Router>
+  );
+};
 
 export default App;
+
