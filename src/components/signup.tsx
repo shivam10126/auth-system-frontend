@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/auth.css';
+import img2 from "../assets/img2.jpg";
 
 type SignupFormValues = {
   fullName: string;
@@ -51,11 +51,19 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="container my-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="auth-card card p-4">
-            <h2 className="text-center mb-4 auth-title">Sign Up</h2>
+    <div className="container-fluid vh-100">
+      <div className="row h-100 p-3" style={{backgroundColor:"#e6f2fe"}}>
+        {/* Illustration Section */}
+        <div className="col-lg-8 d-none d-lg-block p-0">
+          <img src={img2} alt="Decorative illustration" className="img-fluid mr-4 rounded h-100 object-fit-cover" style={{width:"98%"}} />
+        </div>
+
+        {/* Form Section */}
+        <div className="col-lg-4 rounded shadow bg-light d-flex align-items-center justify-content-center">
+          <div className="w-100" style={{ maxWidth: '400px' }}>
+            <h2 className="bold mt-2">Create an account</h2>
+            <p className="mb-4">Enter details below to create an account.</p>
+
             <Formik<SignupFormValues>
               initialValues={{
                 fullName: '',
@@ -71,28 +79,30 @@ const Signup: React.FC = () => {
             >
               {({ errors, touched, isSubmitting }) => (
                 <Form>
-                  <div className="mb-3">
-                    <label htmlFor="fullName" className="form-label">Full Name</label>
-                    <Field name="fullName" type="text" className={`form-control ${errors.fullName && touched.fullName ? 'is-invalid' : ''}`} />
-                    <ErrorMessage name="fullName" component="div" className="invalid-feedback" />
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="fullName" className="form-label">Full Name</label>
+                      <Field name="fullName" type="text" className={`form-control ${errors.fullName && touched.fullName ? 'is-invalid' : ''}`} />
+                      <ErrorMessage name="fullName" component="div" className="invalid-feedback" />
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="email" className="form-label">Email</label>
+                      <Field name="email" type="email" className={`form-control ${errors.email && touched.email ? 'is-invalid' : ''}`} />
+                      <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                    </div>
                   </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <Field name="email" type="email" className={`form-control ${errors.email && touched.email ? 'is-invalid' : ''}`} />
-                    <ErrorMessage name="email" component="div" className="invalid-feedback" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="dateOfBirth" className="form-label">Date of Birth (MM/DD/YY)</label>
-                    <Field name="dateOfBirth" type="text" placeholder="MM/DD/YY" className={`form-control ${errors.dateOfBirth && touched.dateOfBirth ? 'is-invalid' : ''}`} />
-                    <ErrorMessage name="dateOfBirth" component="div" className="invalid-feedback" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="phoneNumber" className="form-label">Phone Number (with country code)</label>
-                    <Field name="phoneNumber" type="text" placeholder="+1 1234567890" className={`form-control ${errors.phoneNumber && touched.phoneNumber ? 'is-invalid' : ''}`} />
-                    <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="dateOfBirth" className="form-label">Date of Birth (MM/DD/YY)</label>
+                      <Field name="dateOfBirth" type="text" placeholder="MM/DD/YY" className={`form-control ${errors.dateOfBirth && touched.dateOfBirth ? 'is-invalid' : ''}`} />
+                      <ErrorMessage name="dateOfBirth" component="div" className="invalid-feedback" />
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                      <Field name="phoneNumber" type="text" placeholder="+1 1234567890" className={`form-control ${errors.phoneNumber && touched.phoneNumber ? 'is-invalid' : ''}`} />
+                      <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
+                    </div>
                   </div>
 
                   <div className="mb-3">
@@ -107,18 +117,23 @@ const Signup: React.FC = () => {
                     <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
                   </div>
 
-                  {errors.submit && <div className="alert alert-danger">{errors.submit}</div>}
+                  {errors.submit && <div className="alert alert-danger" role="alert">{errors.submit}</div>}
 
-                  <div className="d-grid gap-2">
-                    <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
-                      {isSubmitting ? 'Creating Account...' : 'Create Account'}
-                    </button>
-                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-primary w-100"
+                    style={{ backgroundColor: '#2A5A3C', borderColor: '#2A5A3C' }}
+                  >
+                    {isSubmitting ? 'Creating Account...' : 'Create Account'}
+                  </button>
                 </Form>
               )}
             </Formik>
+
             <p className="text-center mt-3">
-              Already have an account? <Link to="/login" className="auth-link">Login</Link>
+              Already have an account?{' '}
+              <Link to="/login" style={{ color: '#FF8A00' }}>Login</Link>
             </p>
           </div>
         </div>
